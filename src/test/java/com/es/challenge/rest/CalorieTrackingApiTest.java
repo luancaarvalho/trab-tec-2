@@ -38,5 +38,37 @@ public class CalorieTrackingApiTest {
 
 		assertEquals("200 must be returned", HttpStatus.OK.value(), response.statusCode());
 	}
+	@Test
+	public void testAddFood() {
+		Headers headers = populateAdminHeaders();
+		Response response = RestAssured.given()
+				.headers(headers)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.body(this.createMockFood())
+				.when().post("/calTracking/admin/addFood");
 
+		assertEquals("200 must be returned", HttpStatus.CREATED.value(), response.statusCode());
+	}
+
+	@Test
+	public void testAddFoodWithoutConsumerKey() {
+		Response response = RestAssured.given()
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.body(this.createMockFood())
+				.when().post("/calTracking/admin/addFood");
+
+		assertEquals("200 must be returned", HttpStatus.UNAUTHORIZED.value(), response.statusCode());
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	private Headers populateAdminHeaders() {
+		return new Headers(new Header("consumer-key", "admin"));
+	}
+
+	private Food createMockFood() {
+		return new Food(Long.valueOf(1000), "Banana", Long.valueOf(2000));
+	}
 }

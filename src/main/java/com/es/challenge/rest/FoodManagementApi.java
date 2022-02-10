@@ -36,22 +36,20 @@ public interface FoodManagementApi {
 	})
 	ResponseEntity getFoods(@PathVariable("caloriesMin") Integer caloriesMin, @PathVariable("caloriesMax") Integer caloriesMax);
 	
-	@PostMapping(value = "/admin/addFood", 
+	@PostMapping(value = "/public/addFood",
 			produces = {MediaType.APPLICATION_JSON_VALUE}, 
 			consumes = {MediaType.APPLICATION_JSON_VALUE})
 	@ApiOperation(value="Add a new Food with details", notes="This is a public API with admin right", response=Response.class)
 	@ApiResponses(value = { 
 			@ApiResponse(code = HttpServletResponse.SC_CREATED, message = "A new food has been added successfully"),
-			@ApiResponse(code = HttpServletResponse.SC_UNAUTHORIZED, message = "Invalid Consumer Key")
 	})
-	ResponseEntity addFood(@RequestHeader(name="Consumer-Key", required=false) String key, @RequestBody Food food);
+	ResponseEntity addFood(@RequestBody Food food);
 	
-	@DeleteMapping(value = "/admin/removeFood/{id}")
+	@DeleteMapping(value = "/public/removeFood/{id}")
 	@ApiOperation(value="Remove an existing Food", notes="This is a public API with admin right", response=Response.class)
 	@ApiResponses(value = { 
 			@ApiResponse(code = HttpServletResponse.SC_NO_CONTENT, message = "The food has been removed successfully"),
-			@ApiResponse(code = HttpServletResponse.SC_UNAUTHORIZED, message = "Invalid Consumer Key"),
 			@ApiResponse(code = HttpServletResponse.SC_NOT_FOUND, message = "The Food does not exist")
 	})
-	ResponseEntity removeFood(@RequestHeader(name="Consumer-Key", required=false) String key, @PathVariable("id") Long foodId);
+	ResponseEntity removeFood( @PathVariable("id") Long foodId);
 }

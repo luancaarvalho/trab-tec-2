@@ -11,7 +11,7 @@ O projeto é um exemplo de aplicação com Spring Boot + JPA + Rest + H2 + Swagg
 
 Ele consiste em um crud Spring de um gerenciamento de comida e suas calorias.
 Para acessar a Ui, a qual, somente lista as comidas que existem no banco H2, basta ir a url
-http://localhost:8080/calTracking e faze as requisições para as rotas da api que estao no arquivo calorieTracking-endpoints.json
+http://localhost:8080/calTracking e fazer as requisições para as rotas da api que estao no arquivo calorieTracking-endpoints.json
 
 #Build
 

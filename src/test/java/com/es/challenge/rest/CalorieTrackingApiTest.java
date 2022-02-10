@@ -71,4 +71,18 @@ public class CalorieTrackingApiTest {
 	private Food createMockFood() {
 		return new Food(Long.valueOf(1000), "Banana", Long.valueOf(2000));
 	}
+
+	@Test
+	public void testGetFoodsWithRange() {
+		Response response = RestAssured.when().get("/calTracking/public/getFoods/50/100");
+
+		assertEquals("200 must be returned", HttpStatus.OK.value(), response.statusCode());
+	}
+
+	@Test
+	public void testGetFoodsWithRangeNotFound() {
+		Response response = RestAssured.when().get("/calTracking/public/getfoods/1000/2000");
+
+		assertEquals("404 must be returned", HttpStatus.NOT_FOUND.value(), response.statusCode());
+	}
 }

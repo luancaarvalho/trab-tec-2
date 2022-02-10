@@ -38,24 +38,17 @@ public class FoodManagementApiImpl implements FoodManagementApi {
 	}
 
 	@Override
-	public ResponseEntity addFood(@RequestHeader(name="Consumer-Key", required=false) String key, @RequestBody Food food) {
-		if (this.esAuthService.isAdmin(key)) {
+	public ResponseEntity addFood( @RequestBody Food food) {
 			Boolean result = this.foodManagementService.addFood(food);
 			return new ResponseEntity(result, HttpStatus.CREATED);
-		}
-		else {
-			return new ResponseEntity(new Response("Invalid Consmer Key"), HttpStatus.UNAUTHORIZED);
-		}
+
 	}
 
 	@Override
-	public ResponseEntity removeFood(@RequestHeader(name="Consumer-Key", required=false) String key, @PathVariable("id") Long foodId) {
-		if (this.esAuthService.isAdmin(key)) {
+	public ResponseEntity removeFood( @PathVariable("id") Long foodId) {
+
 			Boolean result = this.foodManagementService.removeFood(foodId);
 			return new ResponseEntity(result, (result) ? HttpStatus.NO_CONTENT : HttpStatus.NOT_FOUND);
-		}
-		else {
-			return new ResponseEntity(new Response("Invalid Consmer Key"), HttpStatus.UNAUTHORIZED);
-		}
+
 	}
 }
